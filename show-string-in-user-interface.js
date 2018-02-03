@@ -66,15 +66,19 @@ function findStringInUI(stringToFind){
 				element: menu_button,
 				show: function(){
 					// nothing needed except for Extras menu if it's hidden
+					// TODO: how about don't hide the Extras menu
 				},
 			}
 		}else if(menu_item){
 			return {
 				element: menu_item,
 				show: function(){
+					// Note: this might get more complicated when I split the menu popups out into a different container from the menu bar
 					var menu_button = menu_container.querySelector(".menu-button");
 					$(menu_button).trigger("pointerdown");
 					$(menu_button).trigger("pointerup");
+					// TODO: handle submenus
+					// TODO: handle hidden Extras menu or just stop hiding it
 				},
 			};
 		}
@@ -84,6 +88,8 @@ function findStringInUI(stringToFind){
 // show a string in the user's UI using the user's UI DOM node showing code
 // TODO: handle templates (with regexps and placeholders in the UI)
 // var overlayInput; // global for dev (entering in devtools console repeatedly); running this multiple times I want it to clean itself up
+// TODO: rename this function! it does more now
+// (also the invisible apostrophe is awkward)
 function showStringInUsersUI(stringToFind){
 	removeOverlay();
 	var result = findStringInUI(stringToFind);
@@ -93,8 +99,7 @@ function showStringInUsersUI(stringToFind){
 	}
 	result.show();
 	requestAnimationFrame(function(){
-		removeOverlay();//YES this is called twice, it's to prevent a race condition; it's called good programming
-		//and or temporary but thorough programming
+		removeOverlay(); // YES this is called twice, it's to prevent a race condition thankyouverymuch! (indignant "😤hmph")
 		var rect = result.element.getBoundingClientRect();
 		var overlay_input = overlayInput = document.createElement("input");
 		overlay_input.value = stringToFind;
@@ -121,6 +126,7 @@ function showStringInUsersUI(stringToFind){
 		// TODO: maybe if you click and the window wasn't focused previously,
 		// don't remove the overlay, but instead highlight it with a rectangle that "hones in on it"
 		// TODO: esc to remove the overlay
+		// TODO: enter to remove the overlay and show the UI element again
 	});
 
 }
