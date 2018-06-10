@@ -48,4 +48,4 @@ function findStringInUI(stringToFind){
 ```
 
 Try running the code so far ([*show-string-in-user-interface.js*](show-string-in-user-interface.js))
-in the devtools on [jspaint.ml](http://jspaint.ml/).
+in the devtools on [jspaint.app](https://jspaint.app/).
